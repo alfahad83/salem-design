@@ -26,6 +26,7 @@
 html{overflow-x:clip}
 body{font-family:var(--body);background:var(--white);color:var(--ink);line-height:1.75;-webkit-font-smoothing:antialiased;overflow-x:clip}
 img{display:block;max-width:100%}
+[hidden]{display:none!important}
 a{color:inherit;text-decoration:none}
 button{font-family:inherit}
 :focus-visible{outline:2px solid var(--klein);outline-offset:3px;border-radius:6px}
@@ -597,7 +598,7 @@ if(fine&&!reduce){
 try{if(location.hash==='#en')lang='en';else{const s=localStorage.getItem('salem-lang');if(s)lang=s}}catch(e){}
 render();
 $$('i[data-ic]').forEach(el=>{el.outerHTML=IC[el.dataset.ic]});
-$('#lang').addEventListener('click',()=>{lang=lang==='ar'?'en':'ar';render();hsDist=sizeHS();try{localStorage.setItem('salem-lang',lang)}catch(e){}});
+$('#lang').addEventListener('click',()=>{lang=lang==='ar'?'en':'ar';render();hsDist=sizeHS();if(!reduce){const old=parts.map(p=>[p.x,p.y]);buildParticles();parts.forEach((p,i)=>{const o=old[i%old.length]||[p.x,p.y];p.x=o[0];p.y=o[1]});assembled=.35}else staticField();try{localStorage.setItem('salem-lang',lang)}catch(e){}});
 function boot(){
   hsDist=sizeHS();
   if(reduce){staticField()}else{buildParticles();runField()}
